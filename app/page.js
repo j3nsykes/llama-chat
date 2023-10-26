@@ -31,7 +31,7 @@ const VERSIONS = [
   },
   {
     name: "Llava 13B",
-    version: "6bc1c7bb0d2a34e413301fee8f7cc728d2d4e75bfab186aa995f63292bda92fc",
+    version: "2facb4a474a0462c15041b78b1ad70952ea46b5ec6ad29583c0b29dbd4249591",
     shortened: "Llava",
   },
   {
@@ -128,7 +128,7 @@ export default function HomePage() {
           "You uploaded an audio file, so you're now speaking with Salmonn."
         );
       } else if (
-        ["audio/mpeg", "audio/wav", "audio/ogg"].includes(
+        ["image/jpeg", "image/png"].includes(
           file.originalFile.mime
         )
       ) {
@@ -219,8 +219,8 @@ export default function HomePage() {
           {size.shortened == "Llava"
             ? "🌋"
             : size.shortened == "Salmonn"
-            ? "🐟"
-            : "🦙"}{" "}
+              ? "🐟"
+              : "🦙"}{" "}
           <span className="hidden sm:inline-block">Chat with</span>{" "}
           <button
             className="py-2 font-semibold text-gray-500 hover:underline"

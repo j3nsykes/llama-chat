@@ -19,8 +19,8 @@ export async function POST(req) {
   const response = params.image
     ? await runLlava(params)
     : params.audio
-    ? await runSalmonn(params)
-    : await runLlama(params);
+      ? await runSalmonn(params)
+      : await runLlama(params);
 
   // Convert the response into a friendly text-stream
   const stream = await ReplicateStream(response);
@@ -67,7 +67,7 @@ async function runLlava({ prompt, maxTokens, temperature, topP, image }) {
       image: image,
     },
     // IMPORTANT! The model must support streaming. See https://replicate.com/docs/streaming
-    version: "6bc1c7bb0d2a34e413301fee8f7cc728d2d4e75bfab186aa995f63292bda92fc", // hardcoded https://replicate.com/yorickvp/llava-13b/versions
+    version: "2facb4a474a0462c15041b78b1ad70952ea46b5ec6ad29583c0b29dbd4249591", // hardcoded https://replicate.com/yorickvp/llava-13b/versions
   });
 }
 
