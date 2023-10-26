@@ -1,5 +1,6 @@
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
+import WebcamCapture from "./WebcamCapture";
 
 const uploader = Uploader({
   apiKey: "public_kW15biSARCJN7FAz6rANdRg3pNkh",
@@ -63,6 +64,17 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
     <footer className="z-10 fixed bottom-0 left-0 right-0 bg-slate-100 border-t-2">
       <div className="container max-w-2xl mx-auto p-5 pb-8">
         <form className="w-full flex" onSubmit={handleSubmit}>
+          <WebcamCapture>
+            {({ onClick }) => (
+              <button
+                className="p-3 border-gray-600 border-2 inline-flex hover:bg-gray-300 rounded-md mr-3"
+                onClick={onClick}
+              >
+                Webcam
+              </button>
+            )}
+          </WebcamCapture>
+
           <UploadButton
             uploader={uploader}
             options={options}
