@@ -38,6 +38,12 @@ const options = {
   },
 };
 
+const questions = [
+  "What shape do you see?",
+  "What colour is the shape?",
+  "How many shapes are there?",
+];
+
 const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -71,27 +77,24 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
               </button>
             )}
           </UploadButton>
-          <textarea
-            autoComplete="off"
-            autoFocus
-            name="prompt"
+          <select
+            autofocus
             className="flex-grow block w-full rounded-l-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:leading-6"
-            placeholder="Send a message"
-            required={true}
-            value={prompt}
-            rows={1}
             onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={handleKeyDown}
-            onInput={(e) => {
-              const lineCount = e.target.value.split("\n").length;
-              e.target.rows = lineCount > 10 ? 10 : lineCount;
-            }}
-          />
+          >
+            <option value="" disabled>
+              Pick a question
+            </option>
+            {questions.map((q) => (
+              <option value={q}>{q}</option>
+            ))}
+          </select>
           <button
             className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-r-md px-5 py-3"
             type="submit"
           >
-            Chat
+            Ask!
           </button>
         </form>
       </div>
