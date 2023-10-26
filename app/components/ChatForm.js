@@ -78,7 +78,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
             )}
           </UploadButton>
           <select
-            autofocus
+            autoFocus
             className="flex-grow block w-full rounded-l-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:leading-6"
             onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -86,8 +86,10 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
             <option value="" disabled>
               Pick a question
             </option>
-            {questions.map((q) => (
-              <option value={q}>{q}</option>
+            {questions.map((q, i) => (
+              <option value={q} key={`option${i + 1}`}>
+                {q}
+              </option>
             ))}
           </select>
           <button
