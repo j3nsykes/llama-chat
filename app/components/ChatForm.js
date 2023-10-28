@@ -40,10 +40,18 @@ const options = {
 };
 
 const questions = [
-  "What shape do you see?",
+  "Follow these instructions.What shape do you see? Choose from circle, square, rectangle, traingle, line. Answer only the shape name.",
   "What colour is the shape?",
   "How many shapes are there?",
 ];
+
+const questionPrompts = [
+  "Follow these instructions.What shape do you see? Choose from circle, square, rectangle, traingle, line. Answer only the shape name.",
+  "What color is the shape? Answer only the color.",
+  "Follow the instructions. How many shapes are there? Answer only the number",
+];
+
+
 
 const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
   const handleSubmit = async (event) => {
@@ -64,11 +72,13 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
     <footer className="z-10 fixed bottom-0 left-0 right-0 bg-slate-100 border-t-2">
       <div className="container max-w-2xl mx-auto p-5 pb-8">
         <form className="w-full flex" onSubmit={handleSubmit}>
-          <WebcamCapture>
+
+          <WebcamCapture handleFileUpload={handleFileUpload}>
             {({ onClick }) => (
               <button
                 className="p-3 border-gray-600 border-2 inline-flex hover:bg-gray-300 rounded-md mr-3"
                 onClick={onClick}
+                onCapture={handleWebcamCapture}
               >
                 Webcam
               </button>
@@ -110,10 +120,37 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
           >
             Ask!
           </button>
+
+          <button
+            className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-md px-5 py-3 ml-2.5"
+            onClick={() =>
+              setPrompt("Using P5JS code provide code to draw what you have identified. Answer only in P5JS code")
+            }
+          >
+            Code!
+          </button>
         </form>
       </div>
     </footer>
   );
 };
+
+const handleWebcamCapture = (imgSrc) => {
+  fetch(imgSrc)
+    .then(res => res.blob())
+    .then(blob => {
+      const file = new File([blob], "screenshot.png", { type: "image/png" });
+      handleFileUpload(file);
+    });
+
+};
+
+
+
+
+
+
+
+
 
 export default ChatForm;

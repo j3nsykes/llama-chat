@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@bytescale/upload-widget-react": "^4.10.0",
+    "@codemirror/lang-javascript": "^6.2.1",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
+    "@uiw/react-codemirror": "^4.21.20",
     "@vercel/analytics": "^1.0.1",
     "ai": "^2.2.12",
+    "codemirror": "^6.0.1",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
     "next": "13.4.19",

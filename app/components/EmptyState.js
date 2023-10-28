@@ -2,17 +2,6 @@ export default function EmptyState({ setOpen, setPrompt }) {
   return (
     <div className="mt-12 sm:mt-24 space-y-6 text-gray-400 text-base mx-8 sm:mx-4 sm:text-2xl leading-12">
       <p>
-        {" "}
-        Customize Llama&apos;s personality by clicking the{" "}
-        <button
-          className="prompt-button inline-flex items-center "
-          onClick={() => setOpen(true)}
-        >
-          settings{" "}
-        </button>{" "}
-        button.
-      </p>
-      <p>
         I can{" "}
         <button
           className="prompt-button"

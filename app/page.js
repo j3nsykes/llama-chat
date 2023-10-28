@@ -8,6 +8,8 @@ import EmptyState from "./components/EmptyState";
 import { Cog6ToothIcon, CodeBracketIcon } from "@heroicons/react/20/solid";
 import { useCompletion } from "ai/react";
 import { Toaster, toast } from "react-hot-toast";
+import React from 'react';
+import CodeEditor from './components/CodeEditor';
 
 function approximateTokenCount(text) {
   return Math.ceil(text.length * 0.4);
@@ -210,6 +212,7 @@ export default function HomePage() {
 
   return (
     <>
+
       <div className="bg-slate-100 border-b-2 text-center p-3">
         Powered by Replicate. <CTA shortenedModelName={size.shortened} />
       </div>
@@ -231,30 +234,9 @@ export default function HomePage() {
               : "Llama 2 " + size.shortened}
           </button>
         </div>
-        <div className="flex justify-end">
-          <a
-            className="inline-flex items-center px-3 py-2 mr-3 text-sm font-semibold text-gray-700 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-            href="https://github.com/replicate/chat"
-          >
-            <CodeBracketIcon
-              className="w-5 h-5 text-gray-500 sm:mr-2 group-hover:text-gray-900"
-              aria-hidden="true"
-            />{" "}
-            <span className="hidden sm:inline">Clone on GitHub</span>
-          </a>
-          <button
-            type="button"
-            className="inline-flex items-center px-3 py-2 text-sm font-semibold text-gray-900 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-            onClick={() => setOpen(true)}
-          >
-            <Cog6ToothIcon
-              className="w-5 h-5 text-gray-500 sm:mr-2 group-hover:text-gray-900"
-              aria-hidden="true"
-            />{" "}
-            <span className="hidden sm:inline">Settings</span>
-          </button>
-        </div>
       </nav>
+
+
 
       <Toaster position="top-left" reverseOrder={false} />
 
@@ -264,22 +246,6 @@ export default function HomePage() {
           <EmptyState setPrompt={setAndSubmitPrompt} setOpen={setOpen} />
         )}
 
-        <SlideOver
-          open={open}
-          setOpen={setOpen}
-          systemPrompt={systemPrompt}
-          setSystemPrompt={setSystemPrompt}
-          handleSubmit={handleSettingsSubmit}
-          temp={temp}
-          setTemp={setTemp}
-          maxTokens={maxTokens}
-          setMaxTokens={setMaxTokens}
-          topP={topP}
-          setTopP={setTopP}
-          versions={VERSIONS}
-          size={size}
-          setSize={setSize}
-        />
 
         {image && (
           <div>
@@ -314,6 +280,15 @@ export default function HomePage() {
           <div ref={bottomRef} />
         </article>
       </main>
+
+
+      {/* <div className="container">
+        <CodeEditor />
+        <div className="preview">
+          <iframe id="preview-frame" title="Preview"></iframe>
+        </div>
+      </div> */}
+
     </>
   );
 }
