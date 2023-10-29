@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
-// import 'codemirror/lib/codemirror.css';
+
 
 function CodeEditor({ code, setCode }) {
   const previewFrameRef = useRef(null);
@@ -46,39 +46,47 @@ ${currentCode}
   }, [currentCode, runCode]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-end",
-      }}
-    >
+
+    <div className="flex-start flex-col gap-y-1 w-1/3 h-screen sticky top-0 z-99">
+
       <CodeMirror
         value={currentCode}
         onChange={(value) => setCode(value)}
         extensions={[javascript()]}
-        height="250px"
+        height="300px"
         theme="light"
-        lineNumbers={false}
+        fontSize="16pt"
+        basicSetup={{
+          fontSize: "20pt",
+          foldGutter: false,
+          lineNumbers: true,
+          highlightActiveLineGutter: true
+        }}
       />
 
+
       {/* <button className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-md px-5 py-3 ml-2.5" onClick={runCode}>Run</button> */}
-      <div className="w-1/2 p-4">
-        <div className="container mt-4">
-          <iframe
-            className="container p-4"
-            style={{
-              width: "800px",
-              height: "600px",
-              maxWidth: "800px",
-              maxHeight: "600px",
-            }}
-            ref={previewFrameRef}
-            title="Preview"
-          ></iframe>
-        </div>
+
+
+      <div className="w-full mt-4">
+        <iframe
+          className="container"
+          style={{
+            width: "800px",
+            height: "600px",
+            maxWidth: "800px",
+            maxHeight: "600px",
+            marginleft: "-10px",
+          }}
+          ref={previewFrameRef}
+          title="Preview"
+        ></iframe>
       </div>
     </div>
+
+
+
+
   );
 }
 

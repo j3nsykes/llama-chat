@@ -133,7 +133,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
             className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-md px-5 py-3 ml-2.5"
             onClick={() =>
               setPrompt(
-                "Using P5JS code provide code to draw what you have identified. Answer only in P5JS code"
+                "Using P5JS code provide code to draw what you have identified.Always use function setup and function draw. Answer only in P5JS code"
               )
             }
           >
@@ -149,7 +149,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
             autoFocus
             name="prompt"
             className="flex flex-col block w-2/3 ml-10 rounded-l-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:leading-8 ml-1"
-            placeholder="Freestyle: Ask your own question!"
+            placeholder="Ask your own question!"
             required={true}
             value={prompt}
             rows={1}

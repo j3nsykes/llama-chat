@@ -3,14 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import ChatForm from "./components/ChatForm";
 import Message from "./components/Message";
-import SlideOver from "./components/SlideOver";
 import EmptyState from "./components/EmptyState";
-import { Cog6ToothIcon, CodeBracketIcon } from "@heroicons/react/20/solid";
 import { useCompletion } from "ai/react";
 import { Toaster, toast } from "react-hot-toast";
 import React from "react";
 import CodeEditor from "./components/CodeEditor";
-import CodeExtractor from "./components/CodeExtractor";
+
 
 function approximateTokenCount(text) {
   return Math.ceil(text.length * 0.4);
@@ -44,39 +42,7 @@ const VERSIONS = [
   },
 ];
 
-function CTA({ shortenedModelName }) {
-  if (shortenedModelName == "Llava") {
-    return (
-      <a
-        href="https://replicate.com/blog/run-llama-2-with-an-api?utm_source=project&utm_campaign=llama2ai"
-        target="_blank"
-        className="underline"
-      >
-        Run and fine-tune Llava in the cloud.
-      </a>
-    );
-  } else if (shortenedModelName == "Salmonn") {
-    return (
-      <a
-        href="https://replicate.com/blog/run-llama-2-with-an-api?utm_source=project&utm_campaign=llama2ai"
-        target="_blank"
-        className="underline"
-      >
-        Run and fine-tune Salmonn in the cloud.
-      </a>
-    );
-  } else {
-    return (
-      <a
-        href="https://replicate.com/blog/run-llama-2-with-an-api?utm_source=project&utm_campaign=llama2ai"
-        target="_blank"
-        className="underline"
-      >
-        Run and fine-tune Llama 2 in the cloud.
-      </a>
-    );
-  }
-}
+
 
 function extractJavaScriptCode(inputText) {
   const regex = /```\w*([\s\S]*?)```/;
@@ -227,18 +193,13 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="bg-slate-100 border-b-2 text-center p-3">
-        Powered by Replicate. <CTA shortenedModelName={size.shortened} />
-      </div>
       <nav className="grid grid-cols-2 pt-3 pl-6 pr-3 sm:grid-cols-3 sm:pl-0">
         <div className="hidden sm:inline-block"></div>
         <div className="font-semibold text-gray-500 sm:text-center">
+          <span className="hidden sm:inline-block">Draw Code with</span>{" "}
           {size.shortened == "Llava"
             ? "🌋"
-            : size.shortened == "Salmonn"
-            ? "🐟"
             : "🦙"}{" "}
-          <span className="hidden sm:inline-block">Chat with</span>{" "}
           <button
             className="py-2 font-semibold text-gray-500 hover:underline"
             onClick={() => setOpen(true)}
@@ -252,10 +213,10 @@ export default function HomePage() {
 
       <div className="flex">
         {/* Left Section - Chat */}
-        <div className="w-1/2 p-4">
+        <div className="w-full p-4">
           <Toaster position="top-left" reverseOrder={false} />
 
-          <main className="max-w-2xl pb-5 mx-auto mt-4 sm:px-4">
+          <main className="w-full pb-5 mx-auto mt-4 sm:px-4">
             <div className="text-center"></div>
             {messages.length == 0 && !image && !audio && (
               <EmptyState setPrompt={setAndSubmitPrompt} setOpen={setOpen} />
@@ -296,17 +257,7 @@ export default function HomePage() {
             </article>
           </main>
         </div>
-
-        {/* Right Section - Code Editor and Rendered Output */}
-        {/* <div className="w-1/2 p-4">
-
-          <div className="container mt-4"> */}
         <CodeEditor code={code} setCode={setCode} />
-        {/* <div className="preview mt-4">
-              <iframe id="preview-frame" title="Preview"></iframe>
-            </div> */}
-        {/* </div>
-        </div> */}
       </div>
       {/* end of flex container*/}
     </>
