@@ -10,6 +10,7 @@ import { useCompletion } from "ai/react";
 import { Toaster, toast } from "react-hot-toast";
 import React from 'react';
 import CodeEditor from './components/CodeEditor';
+import CodeExtractor from './components/CodeExtractor';
 
 function approximateTokenCount(text) {
   return Math.ceil(text.length * 0.4);
@@ -42,6 +43,7 @@ const VERSIONS = [
     shortened: "Salmonn",
   },
 ];
+
 
 function CTA({ shortenedModelName }) {
   if (shortenedModelName == "Llava") {
@@ -99,6 +101,8 @@ export default function HomePage() {
   // Salmonn params
   const [audio, setAudio] = useState(null);
 
+
+
   const { complete, completion, setInput, input } = useCompletion({
     api: "/api",
     body: {
@@ -130,7 +134,7 @@ export default function HomePage() {
           "You uploaded an audio file, so you're now speaking with Salmonn."
         );
       } else if (
-        ["image/jpeg", "image/png"].includes(
+        ["image/jpeg", "image/png", "screenshot/png", "screenshot/jpeg"].includes(
           file.originalFile.mime
         )
       ) {
@@ -150,6 +154,7 @@ export default function HomePage() {
   const setAndSubmitPrompt = (newPrompt) => {
     handleSubmit(newPrompt);
   };
+
 
   const handleSettingsSubmit = async (event) => {
     event.preventDefault();
@@ -210,6 +215,7 @@ export default function HomePage() {
     }
   }, [messages, completion]);
 
+
   return (
     <>
 
@@ -236,59 +242,69 @@ export default function HomePage() {
         </div>
       </nav>
 
+      <div className="flex">
+        {/* Left Section - Chat */}
+        <div className="w-1/2 p-4">
+
+          <Toaster position="top-left" reverseOrder={false} />
+
+          <main className="max-w-2xl pb-5 mx-auto mt-4 sm:px-4">
+            <div className="text-center"></div>
+            {messages.length == 0 && !image && !audio && (
+              <EmptyState setPrompt={setAndSubmitPrompt} setOpen={setOpen} />
+            )}
 
 
-      <Toaster position="top-left" reverseOrder={false} />
+            {image && (
+              <div>
+                <img src={image} className="mt-6 sm:rounded-xl" />
+              </div>
+            )}
 
-      <main className="max-w-2xl pb-5 mx-auto mt-4 sm:px-4">
-        <div className="text-center"></div>
-        {messages.length == 0 && !image && !audio && (
-          <EmptyState setPrompt={setAndSubmitPrompt} setOpen={setOpen} />
-        )}
+            {audio && (
+              <div>
+                <audio controls src={audio} className="mt-6 sm:rounded-xl" />
+              </div>
+            )}
 
-
-        {image && (
-          <div>
-            <img src={image} className="mt-6 sm:rounded-xl" />
-          </div>
-        )}
-
-        {audio && (
-          <div>
-            <audio controls src={audio} className="mt-6 sm:rounded-xl" />
-          </div>
-        )}
-
-        <ChatForm
-          prompt={input}
-          setPrompt={setInput}
-          onSubmit={handleSubmit}
-          handleFileUpload={handleFileUpload}
-        />
-
-        {error && <div>{error}</div>}
-
-        <article className="pb-24">
-          {messages.map((message, index) => (
-            <Message
-              key={`message-${index}`}
-              message={message.text}
-              isUser={message.isUser}
+            <ChatForm
+              prompt={input}
+              setPrompt={setInput}
+              onSubmit={handleSubmit}
+              handleFileUpload={handleFileUpload}
             />
-          ))}
-          <Message message={completion} isUser={false} />
-          <div ref={bottomRef} />
-        </article>
-      </main>
 
+            {error && <div>{error}</div>}
 
-      {/* <div className="container">
-        <CodeEditor />
-        <div className="preview">
-          <iframe id="preview-frame" title="Preview"></iframe>
+            <article className="pb-24">
+              {messages.map((message, index) => (
+                <Message
+                  key={`message-${index}`}
+                  message={message.text}
+                  isUser={message.isUser}
+                />
+              ))}
+              {console.log(completion)}
+              <Message message={completion} isUser={false} />
+              <div ref={bottomRef} />
+            </article>
+          </main>
+
         </div>
-      </div> */}
 
+
+        {/* Right Section - Code Editor and Rendered Output */}
+        {/* <div className="w-1/2 p-4">
+
+          <div className="container mt-4"> */}
+        <CodeEditor />
+        {/* <div className="preview mt-4">
+              <iframe id="preview-frame" title="Preview"></iframe>
+            </div> */}
+        {/* </div>
+        </div> */}
+
+      </div>{/* end of flex container*/}
     </>
   );
 }

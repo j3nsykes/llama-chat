@@ -1,7 +1,9 @@
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 import WebcamCapture from "./WebcamCapture";
+import CodeEditor from "./CodeEditor";
 
+// Add at the top of your file
 const uploader = Uploader({
   apiKey: "public_kW15biSARCJN7FAz6rANdRg3pNkh",
 });
@@ -40,7 +42,7 @@ const options = {
 };
 
 const questions = [
-  "Follow these instructions.What shape do you see? Choose from circle, square, rectangle, traingle, line. Answer only the shape name.",
+  "What basic primitive shape do you see?",
   "What colour is the shape?",
   "How many shapes are there?",
 ];
@@ -68,17 +70,21 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
     }
   };
 
+
   return (
+
     <footer className="z-10 fixed bottom-0 left-0 right-0 bg-slate-100 border-t-2">
-      <div className="container max-w-2xl mx-auto p-5 pb-8">
+      <div className="container w-full mx-auto p-5 pb-8">
         <form className="w-full flex" onSubmit={handleSubmit}>
 
-          <WebcamCapture handleFileUpload={handleFileUpload}>
+          <WebcamCapture
+          >
+
             {({ onClick }) => (
               <button
                 className="p-3 border-gray-600 border-2 inline-flex hover:bg-gray-300 rounded-md mr-3"
                 onClick={onClick}
-                onCapture={handleWebcamCapture}
+
               >
                 Webcam
               </button>
@@ -102,7 +108,8 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
           <select
             autoFocus
             className="flex-grow block w-full rounded-l-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:leading-6"
-            onChange={(e) => setPrompt(e.target.value)}
+            onChange={(e) => setPrompt(questionPrompts[questions.indexOf(e.target.value)])}
+            // onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={handleKeyDown}
           >
             <option value="" disabled>
@@ -129,21 +136,42 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
           >
             Code!
           </button>
+
+          {/* <button className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-md px-5 py-3 ml-2.5" onClick={runCode}>Run</button> */}
+
+          {/* free style */}
+
+          <textarea
+            autoComplete="off"
+            autoFocus
+            name="prompt"
+            className="flex flex-col block w-2/3 ml-10 rounded-l-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:leading-8 ml-1"
+            placeholder="Freestyle: Ask your own question!"
+            required={true}
+            value={prompt}
+            rows={1}
+            onChange={(e) => setPrompt(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onInput={(e) => {
+              const lineCount = e.target.value.split("\n").length;
+              e.target.rows = lineCount > 10 ? 10 : lineCount;
+            }}
+          />
+          <button
+            className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-r-md px-5 py-3"
+
+            type="submit"
+          >
+            Chat
+          </button>
+
         </form>
       </div>
-    </footer>
+    </footer >
   );
 };
 
-const handleWebcamCapture = (imgSrc) => {
-  fetch(imgSrc)
-    .then(res => res.blob())
-    .then(blob => {
-      const file = new File([blob], "screenshot.png", { type: "image/png" });
-      handleFileUpload(file);
-    });
 
-};
 
 
 

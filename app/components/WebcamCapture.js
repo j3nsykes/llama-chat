@@ -2,33 +2,47 @@ import Webcam from "react-webcam";
 import Popup from "reactjs-popup";
 import { useCallback, useEffect, useRef, useState } from "react";
 import "reactjs-popup/dist/index.css";
+import { Uploader } from "uploader";
+import { UploadButton } from "react-uploader";
+
+// Add at the top of your file
+const uploader = Uploader({
+  apiKey: "public_kW15biSARCJN7FAz6rANdRg3pNkh",
+});
 
 const WebcamCapture = ({ children, handleFileUpload }) => {
+
   const webcamRef = useRef(null);
   const [imgSrc, setImgSrc] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  // const capture = useCallback(() => {
+  //   const imageSrc = webcamRef.current.getScreenshot();
+  //   setImgSrc(imageSrc);
+
+  // }, [webcamRef], [setImgSrc]);
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
-    // Convert data URL to file object and pass to handleFileUpload
-    const imageBlob = dataURLtoBlob(imageSrc);
-    const fileObject = new File([imageBlob], "screenshot.png", { type: "image/png" });
-    handleFileUpload(fileObject);
-  }, [webcamRef, handleFileUpload]);
+    if (imageSrc) {
+      const fetchImage = async () => {
+        const response = await fetch(imageSrc);
+        const blob = await response.blob();
+        const file = new File([blob], "screenshot.jpg", { type: "image/jpeg" });
 
-  function dataURLtoBlob(dataurl) {
-    const arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;  // Use let instead of const here
-    const u8arr = new Uint8Array(n);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
+        if (typeof handleFileUpload === "function") {
+          handleFileUpload(file);
+        } else {
+          console.error('handleFileUpload is not a function', handleFileUpload);
+        }
+      };
+      fetchImage();
     }
-    return new Blob([u8arr], { type: mime });
-  }
+  }, [webcamRef, setImgSrc, handleFileUpload]);
 
 
-  const [open, setOpen] = useState(false);
+
 
   return (
     <>
@@ -45,6 +59,7 @@ const WebcamCapture = ({ children, handleFileUpload }) => {
         onClose={() => {
           setOpen(false);
           setImgSrc(null);
+
         }}
       >
         {(close) => (
@@ -53,14 +68,14 @@ const WebcamCapture = ({ children, handleFileUpload }) => {
               <img src={imgSrc}></img>
             ) : (
               <>
-                <Webcam height={600} width={600} ref={webcamRef} />
-                <button
-                  className="p-3 border-gray-600 border-2 inline-flex hover:bg-gray-300 rounded-md mr-3"
-                  onClick={capture}
-                >
-                  Capture
-                </button>
+                <Webcam height={600} width={600}
+                  ref={webcamRef}
+                  audio={false}
+                  screenshotFormat="image/jpeg"
+
+                />
               </>
+
             )}
           </div>
         )}

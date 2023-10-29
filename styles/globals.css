@@ -38,14 +38,14 @@ i {
 }
 
 .container {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 1; */
 }
 
 #code-editor {
-    flex: 1;
-    height: calc(100vh - 40px);
+    /* flex: 1;
+    height: calc(100vh - 40px); */
 }
 
 #run-button {

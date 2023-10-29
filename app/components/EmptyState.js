@@ -56,7 +56,7 @@ export default function EmptyState({ setOpen, setPrompt }) {
           name your pets.
         </button>{" "}
       </p>
-      <p>Send me a message, or upload an image or audio file.</p>
+      <p>Upload an image , ask me questions to help you code.</p>
     </div>
   );
 }

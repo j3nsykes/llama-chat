@@ -40,18 +40,29 @@ ${codeValue}
     }, [codeValue]);
 
     return (
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
             <CodeMirror
                 value={codeValue}
-                onChange={(editor) => setCodeValue(editor.getValue())}
-                options={{
-                    mode: 'javascript',
-                    theme: 'default',
-                    lineNumbers: true,
-                }}
+                onChange={(value) => setCodeValue(value)}
+                extensions={[javascript()]}
+                height="250px"
+                theme="light"
+                lineNumbers={false}
             />
-            <button id="run-button" onClick={runCode}>Run</button>
-            <iframe id="preview-frame" ref={previewFrameRef} title="Preview"></iframe>
+
+            {/* <button className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-md px-5 py-3 ml-2.5" onClick={runCode}>Run</button> */}
+            <div className="w-1/2 p-4">
+
+                <div className="container mt-4">
+                    <iframe
+                        className="container p-4"
+                        style={{ width: '800px', height: '600px', maxWidth: '800px', maxHeight: '600px' }}
+                        ref={previewFrameRef}
+                        title="Preview">
+                    </iframe>
+
+                </div>
+            </div>
         </div>
     );
 }
