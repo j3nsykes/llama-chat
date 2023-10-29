@@ -1,12 +1,16 @@
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 import WebcamCapture from "./WebcamCapture";
+import { UploadManager } from "@bytescale/sdk";
 import CodeEditor from "./CodeEditor";
 
 // Add at the top of your file
+const uploadApiKey = "public_kW15biSARCJN7FAz6rANdRg3pNkh";
+
 const uploader = Uploader({
-  apiKey: "public_kW15biSARCJN7FAz6rANdRg3pNkh",
+  apiKey: uploadApiKey,
 });
+const uploadManager = new UploadManager({ apiKey: uploadApiKey });
 
 const options = {
   apiKey: "public_kW15biSARCJN7FAz6rANdRg3pNkh",
@@ -53,8 +57,6 @@ const questionPrompts = [
   "Follow the instructions. How many shapes are there? Answer only the number",
 ];
 
-
-
 const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -70,21 +72,18 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
     }
   };
 
-
   return (
-
     <footer className="z-10 fixed bottom-0 left-0 right-0 bg-slate-100 border-t-2">
       <div className="container w-full mx-auto p-5 pb-8">
         <form className="w-full flex" onSubmit={handleSubmit}>
-
           <WebcamCapture
+            uploadManager={uploadManager}
+            onCompleteUpload={(file) => handleFileUpload(file)}
           >
-
             {({ onClick }) => (
               <button
                 className="p-3 border-gray-600 border-2 inline-flex hover:bg-gray-300 rounded-md mr-3"
                 onClick={onClick}
-
               >
                 Webcam
               </button>
@@ -108,7 +107,9 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
           <select
             autoFocus
             className="flex-grow block w-full rounded-l-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:leading-6"
-            onChange={(e) => setPrompt(questionPrompts[questions.indexOf(e.target.value)])}
+            onChange={(e) =>
+              setPrompt(questionPrompts[questions.indexOf(e.target.value)])
+            }
             // onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={handleKeyDown}
           >
@@ -131,7 +132,9 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
           <button
             className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-md px-5 py-3 ml-2.5"
             onClick={() =>
-              setPrompt("Using P5JS code provide code to draw what you have identified. Answer only in P5JS code")
+              setPrompt(
+                "Using P5JS code provide code to draw what you have identified. Answer only in P5JS code"
+              )
             }
           >
             Code!
@@ -159,26 +162,14 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
           />
           <button
             className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-r-md px-5 py-3"
-
             type="submit"
           >
             Chat
           </button>
-
         </form>
       </div>
-    </footer >
+    </footer>
   );
 };
-
-
-
-
-
-
-
-
-
-
 
 export default ChatForm;

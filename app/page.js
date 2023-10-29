@@ -8,9 +8,9 @@ import EmptyState from "./components/EmptyState";
 import { Cog6ToothIcon, CodeBracketIcon } from "@heroicons/react/20/solid";
 import { useCompletion } from "ai/react";
 import { Toaster, toast } from "react-hot-toast";
-import React from 'react';
-import CodeEditor from './components/CodeEditor';
-import CodeExtractor from './components/CodeExtractor';
+import React from "react";
+import CodeEditor from "./components/CodeEditor";
+import CodeExtractor from "./components/CodeExtractor";
 
 function approximateTokenCount(text) {
   return Math.ceil(text.length * 0.4);
@@ -43,7 +43,6 @@ const VERSIONS = [
     shortened: "Salmonn",
   },
 ];
-
 
 function CTA({ shortenedModelName }) {
   if (shortenedModelName == "Llava") {
@@ -101,8 +100,6 @@ export default function HomePage() {
   // Salmonn params
   const [audio, setAudio] = useState(null);
 
-
-
   const { complete, completion, setInput, input } = useCompletion({
     api: "/api",
     body: {
@@ -122,22 +119,15 @@ export default function HomePage() {
   const handleFileUpload = (file) => {
     if (file) {
       console.log(file);
+      const mimeType = file.originalFile ? file.originalFile.mime : file.mime;
       // determine if file is image or audio
-      if (
-        ["audio/mpeg", "audio/wav", "audio/ogg"].includes(
-          file.originalFile.mime
-        )
-      ) {
+      if (["audio/mpeg", "audio/wav", "audio/ogg"].includes(mimeType)) {
         setAudio(file.fileUrl);
         setSize(VERSIONS[4]);
         toast.success(
           "You uploaded an audio file, so you're now speaking with Salmonn."
         );
-      } else if (
-        ["image/jpeg", "image/png", "screenshot/png", "screenshot/jpeg"].includes(
-          file.originalFile.mime
-        )
-      ) {
+      } else if (["image/jpeg", "image/png"].includes(mimeType)) {
         setImage(file.fileUrl);
         setSize(VERSIONS[3]);
         toast.success(
@@ -145,7 +135,7 @@ export default function HomePage() {
         );
       } else {
         toast.error(
-          `Sorry, we don't support that file type (${file.originalFile.mime}) yet. Feel free to push a PR to add support for it!`
+          `Sorry, we don't support that file type (${mimeType}) yet. Feel free to push a PR to add support for it!`
         );
       }
     }
@@ -154,7 +144,6 @@ export default function HomePage() {
   const setAndSubmitPrompt = (newPrompt) => {
     handleSubmit(newPrompt);
   };
-
 
   const handleSettingsSubmit = async (event) => {
     event.preventDefault();
@@ -215,10 +204,8 @@ export default function HomePage() {
     }
   }, [messages, completion]);
 
-
   return (
     <>
-
       <div className="bg-slate-100 border-b-2 text-center p-3">
         Powered by Replicate. <CTA shortenedModelName={size.shortened} />
       </div>
@@ -228,8 +215,8 @@ export default function HomePage() {
           {size.shortened == "Llava"
             ? "🌋"
             : size.shortened == "Salmonn"
-              ? "🐟"
-              : "🦙"}{" "}
+            ? "🐟"
+            : "🦙"}{" "}
           <span className="hidden sm:inline-block">Chat with</span>{" "}
           <button
             className="py-2 font-semibold text-gray-500 hover:underline"
@@ -245,7 +232,6 @@ export default function HomePage() {
       <div className="flex">
         {/* Left Section - Chat */}
         <div className="w-1/2 p-4">
-
           <Toaster position="top-left" reverseOrder={false} />
 
           <main className="max-w-2xl pb-5 mx-auto mt-4 sm:px-4">
@@ -253,7 +239,6 @@ export default function HomePage() {
             {messages.length == 0 && !image && !audio && (
               <EmptyState setPrompt={setAndSubmitPrompt} setOpen={setOpen} />
             )}
-
 
             {image && (
               <div>
@@ -289,9 +274,7 @@ export default function HomePage() {
               <div ref={bottomRef} />
             </article>
           </main>
-
         </div>
-
 
         {/* Right Section - Code Editor and Rendered Output */}
         {/* <div className="w-1/2 p-4">
@@ -303,8 +286,8 @@ export default function HomePage() {
             </div> */}
         {/* </div>
         </div> */}
-
-      </div>{/* end of flex container*/}
+      </div>
+      {/* end of flex container*/}
     </>
   );
 }
