@@ -78,6 +78,17 @@ function CTA({ shortenedModelName }) {
   }
 }
 
+function extractJavaScriptCode(inputText) {
+  const regex = /```\w*([\s\S]*?)```/;
+  const match = inputText.match(regex);
+
+  if (match && match[1]) {
+    return match[1].trim();
+  } else {
+    return null;
+  }
+}
+
 export default function HomePage() {
   const MAX_TOKENS = 4096;
   const bottomRef = useRef(null);
@@ -99,6 +110,8 @@ export default function HomePage() {
 
   // Salmonn params
   const [audio, setAudio] = useState(null);
+
+  const [code, setCode] = useState(null);
 
   const { complete, completion, setInput, input } = useCompletion({
     api: "/api",
@@ -204,6 +217,14 @@ export default function HomePage() {
     }
   }, [messages, completion]);
 
+  useEffect(() => {
+    const extractedCode = extractJavaScriptCode(completion);
+    if (!extractedCode) {
+      return;
+    }
+    setCode(extractedCode);
+  }, [completion]);
+
   return (
     <>
       <div className="bg-slate-100 border-b-2 text-center p-3">
@@ -280,7 +301,7 @@ export default function HomePage() {
         {/* <div className="w-1/2 p-4">
 
           <div className="container mt-4"> */}
-        <CodeEditor />
+        <CodeEditor code={code} setCode={setCode} />
         {/* <div className="preview mt-4">
               <iframe id="preview-frame" title="Preview"></iframe>
             </div> */}
