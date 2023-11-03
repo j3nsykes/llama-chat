@@ -52,6 +52,26 @@ async function runLlama({
     version: version,
   });
 }
+/*
+async function runLlava({ prompt, maxTokens, temperature, topP, image }) {
+  console.log("running llava");
+  return await replicate.deployments.predictions.create(
+    "j3nsykes",
+    "j3nsykesllava-13b",
+    {
+      stream: true,
+      input: {
+        prompt: `${prompt}`,
+        top_p: topP,
+        temperature: temperature,
+        max_tokens: maxTokens,
+        image: image,
+      },
+      version: "2facb4a474a0462c15041b78b1ad70952ea46b5ec6ad29583c0b29dbd4249591", // hardcoded https://replicate.com/yorickvp/llava-13b/versions
+    }
+  );
+}
+*/
 
 async function runLlava({ prompt, maxTokens, temperature, topP, image }) {
   console.log("running llava");
@@ -70,6 +90,7 @@ async function runLlava({ prompt, maxTokens, temperature, topP, image }) {
     version: "2facb4a474a0462c15041b78b1ad70952ea46b5ec6ad29583c0b29dbd4249591", // hardcoded https://replicate.com/yorickvp/llava-13b/versions
   });
 }
+
 
 async function runSalmonn({ prompt, maxTokens, temperature, topP, audio }) {
   console.log("running salmonn");

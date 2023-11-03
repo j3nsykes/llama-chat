@@ -15,12 +15,12 @@ export default function EmptyState({ setOpen, setPrompt }) {
 
       <div className="pt-28 space-y-4 text-gray-600 text-base sm:text-xs">
         <p>
-          Front-end Creative Code and concept developed by          <a
+          Front-end Dev, Creative Code and concept developed by          <a
             className="text-xs underline underline-offset-1"
             href="https://j3nsykes.github.io/"
           >
             <span className="hidden sm:inline">Jen Sykes</span>
-          </a>. React.js developed by Douglas Greenshields.
+          </a>. React.js support Douglas Greenshields.
         </p>
         <p>App built with Replicate.
           <a

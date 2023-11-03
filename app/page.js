@@ -8,7 +8,8 @@ import { useCompletion } from "ai/react";
 import { Toaster, toast } from "react-hot-toast";
 import React from "react";
 import CodeEditor from "./components/CodeEditor";
-
+import SlideOver from "./components/SlideOver";
+import { Cog6ToothIcon, CodeBracketIcon } from "@heroicons/react/20/solid";
 
 function approximateTokenCount(text) {
   return Math.ceil(text.length * 0.4);
@@ -31,7 +32,7 @@ const VERSIONS = [
     shortened: "70B",
   },
   {
-    name: "Llava 13B",
+    name: "j3nsykesllava-13b",
     version: "2facb4a474a0462c15041b78b1ad70952ea46b5ec6ad29583c0b29dbd4249591",
     shortened: "Llava",
   },
@@ -65,11 +66,11 @@ export default function HomePage() {
   //   Llama params
   const [size, setSize] = useState(VERSIONS[2]); // default to 70B
   const [systemPrompt, setSystemPrompt] = useState(
-    "You are a helpful assistant."
+    "You are a helpful assistant. If asked to provide P5JS code follow the instructions step by step. Write code that is suitable for someone completely new to code. Always use function setup and function draw. Only use P5JS library functions. For example, if you see a circle use ellipse() if you see a square use rect(). Answer only in code. "
   );
-  const [temp, setTemp] = useState(0.75);
+  const [temp, setTemp] = useState(0.5);
   const [topP, setTopP] = useState(0.9);
-  const [maxTokens, setMaxTokens] = useState(800);
+  const [maxTokens, setMaxTokens] = useState(1024);
 
   //  Llava params
   const [image, setImage] = useState(null);
@@ -208,6 +209,19 @@ export default function HomePage() {
               ? size.shortened
               : "Llama 2 " + size.shortened}
           </button>
+
+          {/* settings button */}
+          {/* <button
+            type="button"
+            className="inline-flex items-center px-3 py-2 text-sm font-semibold text-gray-900 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            onClick={() => setOpen(true)}
+          >
+            <Cog6ToothIcon
+              className="w-5 h-5 text-gray-500 sm:mr-2 group-hover:text-gray-900"
+              aria-hidden="true"
+            />{" "}
+            <span className="hidden sm:inline">Settings</span>
+          </button> */}
         </div>
       </nav>
 
@@ -221,6 +235,24 @@ export default function HomePage() {
             {messages.length == 0 && !image && !audio && (
               <EmptyState setPrompt={setAndSubmitPrompt} setOpen={setOpen} />
             )}
+
+            {/* settings slider */}
+            {/* <SlideOver
+              open={open}
+              setOpen={setOpen}
+              systemPrompt={systemPrompt}
+              setSystemPrompt={setSystemPrompt}
+              handleSubmit={handleSettingsSubmit}
+              temp={temp}
+              setTemp={setTemp}
+              maxTokens={maxTokens}
+              setMaxTokens={setMaxTokens}
+              topP={topP}
+              setTopP={setTopP}
+              versions={VERSIONS}
+              size={size}
+              setSize={setSize}
+            /> */}
 
             {image && (
               <div>
