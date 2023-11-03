@@ -66,7 +66,7 @@ export default function HomePage() {
   //   Llama params
   const [size, setSize] = useState(VERSIONS[2]); // default to 70B
   const [systemPrompt, setSystemPrompt] = useState(
-    "You are a helpful assistant. If asked to provide P5JS code follow the instructions step by step. Write code that is suitable for someone completely new to code. Always use function setup and function draw. Only use P5JS library functions. For example, if you see a circle use ellipse() if you see a square use rect(). Answer only in code. "
+    "You are a helpful assistant. If asked to provide P5JS code follow the instructions step by step. Write code that is suitable for someone completely new to code. Always use function setup and function draw. Only use P5JS library functions. For example, if you see a circle use ellipse() if you see a square use rect(). Answer only in code and put the code in markdown ```. "
   );
   const [temp, setTemp] = useState(0.5);
   const [topP, setTopP] = useState(0.9);

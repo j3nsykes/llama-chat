@@ -9,7 +9,7 @@ export default function EmptyState({ setOpen, setPrompt }) {
       <div className="pt-2 space-y-4 text-gray-600 text-base sm:text-lg">
         <p>Do a drawing, make a sculptural shape.</p>
         <p>Upload an image or capture your webcam.</p>
-        <p>Ask me questions to help you code.</p>
+        <p>Ask structured questions to help you code.</p>
         <p> Start with the questions provide and then freestyle by asking your own.</p>
       </div>
 
