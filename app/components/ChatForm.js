@@ -46,14 +46,14 @@ const options = {
 };
 
 const questions = [
-  "",
+  "Select a question",
   "What basic primitive shape do you see?",
   "What colour is the shape?",
   "How many shapes are there?",
 ];
 
 const questionPrompts = [
-  "",
+  "Select a question",
   "Follow these instructions.What shape do you see? Choose from circle,square, rectangle, triangle, line. Answer only the shape name.",
   "What color is the shape?",
   "Follow the instructions. How many shapes are there? Answer only the number",
