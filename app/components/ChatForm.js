@@ -133,7 +133,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
             className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-md px-5 py-3 ml-2.5"
             onClick={() =>
               setPrompt(
-                "Follow the instructions step by step. Using the P5JS code language provide code to draw what you have identified.  Write code that is suitable for someone completely new to code. Always use function setup and function draw. Only use P5JS library functions. For example, if you see a circle use ellipse() if you see a square use rect(). Answer only in code."
+                "Follow the instructions. Using the P5JS code language provide code to draw what you have identified.  Write code that is suitable for someone completely new to code. Always use function setup and function draw. Only use P5JS library functions. For example, if you see a circle use ellipse() if you see a square use rect()."
               )
             }
           >
