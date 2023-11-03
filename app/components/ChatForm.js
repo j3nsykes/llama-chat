@@ -46,12 +46,14 @@ const options = {
 };
 
 const questions = [
+  "",
   "What basic primitive shape do you see?",
   "What colour is the shape?",
   "How many shapes are there?",
 ];
 
 const questionPrompts = [
+  "",
   "Follow these instructions.What shape do you see? Choose from circle,square, rectangle, triangle, line. Answer only the shape name.",
   "What color is the shape?",
   "Follow the instructions. How many shapes are there? Answer only the number",
@@ -113,7 +115,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
             // onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={handleKeyDown}
           >
-            <option value="disabled" >
+            <option value="" disabled>
               Pick a question
             </option>
             {questions.map((q, i) => (
