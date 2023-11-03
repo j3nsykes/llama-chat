@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import CodeEditor from "./components/CodeEditor";
 
 function CodeExtractor(props) {
     const [extractedCode, setExtractedCode] = useState('');
