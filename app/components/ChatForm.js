@@ -113,7 +113,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
             // onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={handleKeyDown}
           >
-            <option value="" >
+            <option value="disabled" >
               Pick a question
             </option>
             {questions.map((q, i) => (
