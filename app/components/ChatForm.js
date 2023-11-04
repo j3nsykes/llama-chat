@@ -54,9 +54,9 @@ const questions = [
 
 const questionPrompts = [
   "Select a question",
-  "Follow these instructions.What shape do you see? Choose from circle,square, rectangle, triangle, line. Answer only the shape name.",
+  "Follow these instructions.What shape do you see? Choose from circle,square, rectangle, triangle, line. ",
   "What color is the shape?",
-  "Follow the instructions. How many shapes are there? Answer only the number",
+  "Follow the instructions. How many shapes are there?",
 ];
 
 const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
@@ -108,7 +108,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
           </UploadButton>
           <select
             autoFocus
-            className="flex-grow block w-full rounded-l-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:leading-6"
+            className="flex-grow block w-full rounded-l-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-400 sm:leading-6"
             onChange={(e) =>
               setPrompt(questionPrompts[questions.indexOf(e.target.value)])
             }
@@ -125,17 +125,17 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
             ))}
           </select>
           <button
-            className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-r-md px-5 py-3"
+            className="bg-blue-600 hover:bg-blue-800 items-center font-semibold text-white rounded-r-md px-5 py-3"
             type="submit"
           >
             Ask!
           </button>
 
           <button
-            className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-md px-5 py-3 ml-2.5"
+            className="bg-blue-600 hover:bg-blue-800 items-center font-semibold text-white rounded-md px-5 py-3 ml-2.5"
             onClick={() =>
               setPrompt(
-                "Follow the instructions. Using the P5JS code language provide code to draw what you have identified.  Write code that is suitable for someone completely new to code. Always use function setup and function draw. Only use P5JS library functions. For example, if you see a circle use ellipse() if you see a square use rect()."
+                "Follow the instructions. Using the P5JS code language provide code to draw what you have identified.  Write code that is suitable for someone completely new to code. Always use function setup and function draw. Only use P5JS library functions. For example, if you see a circle use ellipse(), if you see a square use rect(), if applying color use fill() or stroke()."
               )
             }
           >
@@ -150,7 +150,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
             autoComplete="off"
             autoFocus
             name="prompt"
-            className="flex flex-col block w-2/3 ml-10 rounded-l-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:leading-8 ml-1"
+            className="flex flex-col block w-2/3 ml-10 rounded-l-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-400 sm:leading-8 ml-1"
             placeholder="Ask your own question!"
             required={true}
             value={prompt}
@@ -163,7 +163,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
             }}
           />
           <button
-            className="bg-gray-600 hover:bg-gray-800 items-center font-semibold text-white rounded-r-md px-5 py-3"
+            className="bg-blue-600 hover:bg-blue-800 items-center font-semibold text-white rounded-r-md px-5 py-3"
             type="submit"
           >
             Chat
