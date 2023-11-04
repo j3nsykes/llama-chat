@@ -84,7 +84,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
           >
             {({ onClick }) => (
               <button
-                className="p-3 border-gray-600 border-2 inline-flex hover:bg-gray-300 rounded-md mr-3"
+                className="p-3 border-gray-600 border-2 inline-flex hover:bg-blue-200 rounded-md mr-3"
                 onClick={onClick}
               >
                 Webcam
@@ -99,7 +99,7 @@ const ChatForm = ({ prompt, setPrompt, onSubmit, handleFileUpload }) => {
           >
             {({ onClick }) => (
               <button
-                className="p-3 border-gray-600 border-2 inline-flex hover:bg-gray-300 rounded-md mr-3"
+                className="p-3 border-gray-600 border-2 inline-flex hover:bg-blue-200 rounded-md mr-3"
                 onClick={onClick}
               >
                 Upload
