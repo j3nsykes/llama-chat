@@ -197,7 +197,7 @@ export default function HomePage() {
       <nav className="grid grid-cols-2 pt-3 pl-6 pr-3 sm:grid-cols-3 sm:pl-0">
         <div className="hidden sm:inline-block"></div>
         <div className="font-semibold text-gray-500 sm:text-center">
-          <span className="hidden sm:inline-block">Draw Code with</span>{" "}
+          <span className="hidden sm:inline-block">Draw, Sculpt + Code with</span>{" "}
           {size.shortened == "Llava"
             ? "🌋"
             : "🦙"}{" "}
